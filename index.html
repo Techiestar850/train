@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>David Akimara — Portfolio</title>
+<title id="page-title">David Akimara — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- YAML parser: turns portfolio-data.yml into a JS object for script.js -->
+<!-- YAML parser, used by script.js to read david-akimara-portfolio.yml -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <style>
   :root{
     --bg: #F5F3EE;
+    --bg-alt: #ECE7DA;
     --panel: #FBFAF6;
     --ink: #1D1B18;
     --ink-soft: #55524A;
@@ -21,45 +22,124 @@
     --line: #D8D2C4;
     --max: 1080px;
   }
+
   *{ box-sizing: border-box; }
   html{ scroll-behavior: smooth; }
   body{
-    margin:0; background: var(--bg); color: var(--ink);
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
     font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  h1,h2,h3{ font-family: 'Source Serif 4', Georgia, serif; font-weight:600; margin:0; color: var(--ink); }
+  h1,h2,h3{
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
   a{ color: inherit; }
   img,svg{ max-width: 100%; }
   .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 28px; }
-  a:focus-visible, button:focus-visible{ outline: 2px solid var(--teal); outline-offset: 3px; }
 
-  header{ position: sticky; top:0; z-index: 20; background: rgba(245,243,238,0.92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding: 16px 28px; max-width: var(--max); margin: 0 auto; }
-  .mark{ width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--teal); display:flex; align-items:center; justify-content:center; font-family:'Source Serif 4',serif; font-weight:600; font-size: 15px; color: var(--teal); flex-shrink:0; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky; top:0; z-index: 20;
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 28px;
+    max-width: var(--max); margin: 0 auto;
+  }
+  .mark{
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1.5px solid var(--teal);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Source Serif 4',serif; font-weight:600; font-size: 15px;
+    color: var(--teal);
+    flex-shrink:0;
+  }
   .nav-left{ display:flex; align-items:center; gap:12px; }
   .nav-left .name{ font-size: 14px; letter-spacing: 0.02em; color: var(--ink-soft); }
-  nav ul{ list-style:none; display:flex; gap: 28px; margin:0; padding:0; font-size: 14px; }
+  nav ul{
+    list-style:none; display:flex; gap: 28px; margin:0; padding:0;
+    font-size: 14px;
+  }
   nav ul a{ text-decoration:none; color: var(--ink-soft); transition: color .15s ease; }
   nav ul a:hover{ color: var(--teal); }
-  @media (max-width: 720px){ nav ul{ display:none; } }
 
-  .hero{ padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
-  .hero-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items:center; }
-  @media (max-width: 860px){ .hero-grid{ grid-template-columns: 1fr; } }
-  .eyebrow{ font-size: 13px; color: var(--teal); margin-bottom: 14px; }
-  .hero h1{ font-size: clamp(2.1rem, 4.2vw, 3.4rem); line-height: 1.12; max-width: 16ch; }
-  .hero p.lede{ max-width: 46ch; color: var(--ink-soft); font-size: 1.05rem; margin-top: 20px; }
+  @media (max-width: 720px){
+    nav ul{ display:none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items:center;
+  }
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+  }
+  .eyebrow{
+    font-size: 13px; color: var(--teal); margin-bottom: 14px;
+  }
+  .hero h1{
+    font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+    line-height: 1.12;
+    max-width: 16ch;
+  }
+  .hero p.lede{
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    margin-top: 20px;
+  }
   .hero-actions{ margin-top: 28px; display:flex; gap:16px; flex-wrap:wrap; }
-  .btn{ display:inline-block; padding: 11px 22px; border: 1px solid var(--teal); color: var(--teal); text-decoration:none; font-size: 14px; border-radius: 3px; transition: background .15s ease, color .15s ease; }
+  .btn{
+    display:inline-block; padding: 11px 22px;
+    border: 1px solid var(--teal);
+    color: var(--teal);
+    text-decoration:none; font-size: 14px; border-radius: 3px;
+    transition: background .15s ease, color .15s ease;
+  }
   .btn.solid{ background: var(--teal); color: #fff; }
   .btn.solid:hover{ background: var(--teal-deep); border-color: var(--teal-deep); }
   .btn:not(.solid):hover{ background: var(--teal); color:#fff; }
 
-  .diagram{ background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 18px; }
+  /* tooth diagram */
+  .diagram{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px;
+  }
   .diagram svg{ display:block; width:100%; height:auto; }
-  .diagram-caption{ font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; }
-  .tooth-outline{ fill:none; stroke: var(--teal-deep); stroke-width: 2; stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 1.8s ease forwards .2s; }
+  .diagram-caption{
+    font-size: 12px; color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    margin-top: 14px; padding-top: 10px;
+  }
+  .tooth-outline{
+    fill:none; stroke: var(--teal-deep); stroke-width: 2;
+    stroke-dasharray: 900; stroke-dashoffset: 900;
+    animation: draw 1.8s ease forwards .2s;
+  }
   .tooth-fill-dentin{ fill: #EFE6D2; opacity:0; animation: fadein .6s ease forwards 1.4s; }
   .tooth-fill-pulp{ fill: #E3B98A; opacity:0; animation: fadein .6s ease forwards 1.6s; }
   .leader{ stroke: var(--line); stroke-width:1; }
@@ -71,46 +151,94 @@
     .tooth-fill-dentin,.tooth-fill-pulp{ animation:none; opacity:1; }
   }
 
+  /* ---------- Section shell ---------- */
   section{ padding: 64px 0; border-bottom: 1px solid var(--line); }
   section:last-of-type{ border-bottom:none; }
-  .section-head{ display:flex; justify-content:space-between; align-items:baseline; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap: 24px; margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
   .section-head h2{ font-size: 1.7rem; }
   .section-head .index{ font-size: 13px; color: var(--ink-soft); }
 
-  .about-grid{ display:grid; grid-template-columns: 200px 1fr; gap: 40px; }
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 200px 1fr; gap: 40px;
+  }
   @media (max-width: 720px){ .about-grid{ grid-template-columns:1fr; } }
-  .portrait{ width: 160px; height: 160px; border-radius: 50%; background: var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Source Serif 4',serif; font-size: 2.6rem; font-weight:600; }
+  .portrait{
+    width: 160px; height: 160px; border-radius: 50%;
+    background: var(--teal);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Source Serif 4',serif; font-size: 2.6rem; font-weight:600;
+  }
   .about-text p{ margin: 0 0 16px; color: var(--ink-soft); max-width: 62ch; }
   .about-text p:last-child{ margin-bottom:0; }
   .about-text strong{ color: var(--ink); font-weight:600; }
 
-  .specimens{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  /* ---------- Focus areas: specimen tags ---------- */
+  .specimens{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
   @media (max-width: 780px){ .specimens{ grid-template-columns:1fr; } }
-  .specimen{ border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 26px; }
-  .specimen .tag{ font-size: 11px; color: var(--gold); letter-spacing: 0.03em; margin-bottom: 10px; }
+  .specimen{
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 26px;
+  }
+  .specimen .tag{
+    font-size: 11px; color: var(--gold); letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
   .specimen h3{ font-size: 1.15rem; margin-bottom: 10px; }
   .specimen p{ font-size: 0.94rem; color: var(--ink-soft); margin:0; }
 
+  /* ---------- Case work ---------- */
   .cases{ display:flex; flex-direction:column; gap: 0; }
-  .case{ display:grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .case{
+    display:grid; grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+  }
   .cases > .case:last-child{ border-bottom: 1px solid var(--line); }
   @media (max-width: 640px){ .case{ grid-template-columns:1fr; gap:6px; } }
   .case .when{ font-size: 13px; color: var(--ink-soft); padding-top: 2px; }
   .case h3{ font-size: 1.1rem; margin-bottom: 6px; }
   .case p{ margin:0; color: var(--ink-soft); font-size: 0.95rem; max-width: 60ch; }
   .case .tags{ margin-top: 10px; display:flex; gap:8px; flex-wrap:wrap; }
-  .case .tags span{ font-size: 11px; color: var(--teal); border: 1px solid var(--teal); border-radius: 3px; padding: 3px 8px; }
+  .case .tags span{
+    font-size: 11px; color: var(--teal);
+    border: 1px solid var(--teal); border-radius: 3px;
+    padding: 3px 8px;
+  }
 
+  /* ---------- Education timeline ---------- */
   .timeline{ position:relative; padding-left: 28px; }
-  .timeline::before{ content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background: var(--line); }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px;
+    width:1px; background: var(--line);
+  }
   .t-item{ position:relative; padding-bottom: 32px; }
   .t-item:last-child{ padding-bottom:0; }
-  .t-item::before{ content:""; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%; background: var(--panel); border: 2px solid var(--teal); }
+  .t-item::before{
+    content:""; position:absolute; left:-28px; top:5px;
+    width:11px; height:11px; border-radius:50%;
+    background: var(--panel); border: 2px solid var(--teal);
+  }
   .t-item .when{ font-size: 13px; color: var(--gold); margin-bottom: 4px; }
   .t-item h3{ font-size: 1.05rem; margin-bottom: 6px; }
   .t-item p{ margin:0; color: var(--ink-soft); font-size:0.94rem; max-width: 58ch; }
 
-  .contact-grid{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items:start; }
+  /* ---------- Contact ---------- */
+  .contact-grid{
+    display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px;
+    align-items:start;
+  }
   @media (max-width: 720px){ .contact-grid{ grid-template-columns:1fr; } }
   .contact-grid h2{ font-size: 1.9rem; max-width: 14ch; }
   .contact-list{ list-style:none; margin: 24px 0 0; padding:0; }
@@ -120,11 +248,18 @@
   .contact-list a{ text-decoration:none; font-size: 0.98rem; }
   .contact-list a:hover{ color: var(--teal); }
 
-  footer{ padding: 28px 0 40px; font-size: 12.5px; color: var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  footer{
+    padding: 28px 0 40px;
+    font-size: 12.5px; color: var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
 
-  /* shown briefly while script.js fetches + parses the YAML, or if it fails */
-  .load-msg{ padding: 40px 28px; color: var(--ink-soft); font-size: 14px; }
-  .load-msg.error{ color: #a13d3d; }
+  /* shown only if the yml fails to load */
+  .load-error{
+    display:none;
+    max-width: var(--max); margin: 40px auto; padding: 0 28px;
+    color: var(--ink-soft); font-size: 14px;
+  }
 </style>
 </head>
 <body>
@@ -132,23 +267,29 @@
 <header>
   <div class="nav">
     <div class="nav-left">
-      <div class="mark" id="siteMonogram">DA</div>
-      <span class="name" id="siteName">Loading…</span>
+      <div class="mark" id="mark">DA</div>
+      <span class="name" id="nav-name"></span>
     </div>
-    <nav><ul id="navList"></ul></nav>
+    <nav>
+      <ul id="nav-list"></ul>
+    </nav>
   </div>
 </header>
 
-<main>
-  <p id="loadMsg" class="load-msg">Loading portfolio content…</p>
+<div class="load-error" id="load-error">
+  Couldn't load <code>david-akimara-portfolio.yml</code>. If you're opening this file directly
+  from disk, browsers block local file fetches — serve the folder instead
+  (e.g. <code>python3 -m http.server</code>, or GitHub Pages once it's pushed).
+</div>
 
-  <section class="hero" id="heroSection" hidden>
+<main id="main-content">
+  <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow" id="heroEyebrow"></div>
-        <h1 id="heroHeadline"></h1>
-        <p class="lede" id="heroLede"></p>
-        <div class="hero-actions" id="heroActions"></div>
+        <div class="eyebrow" id="hero-eyebrow"></div>
+        <h1 id="hero-headline"></h1>
+        <p class="lede" id="hero-lede"></p>
+        <div class="hero-actions" id="hero-actions"></div>
       </div>
 
       <div class="diagram">
@@ -158,58 +299,76 @@
           <path class="tooth-fill-pulp" d="M148 60 C148 52 172 52 172 60 L174 110 C174 150 168 190 160 200 C152 190 146 150 146 110 Z"/>
           <path class="tooth-outline" d="M110 40 C110 20 210 20 210 40 L214 96 C214 110 200 118 190 122 L184 200 C184 214 176 222 165 222 L155 222 C144 222 136 214 136 200 L130 122 C120 118 106 110 106 96 Z"/>
           <path class="tooth-outline" d="M112 44 C112 44 130 60 160 60 C190 60 208 44 208 44"/>
-          <line class="leader" x1="214" y1="45" x2="255" y2="45"/><text class="label" x="258" y="48">Enamel</text>
-          <line class="leader" x1="205" y1="90" x2="255" y2="80"/><text class="label" x="258" y="83">Dentin</text>
-          <line class="leader" x1="163" y1="90" x2="255" y2="115"/><text class="label" x="258" y="118">Pulp chamber</text>
-          <line class="leader" x1="160" y1="190" x2="255" y2="180"/><text class="label" x="258" y="183">Root canal</text>
+
+          <line class="leader" x1="214" y1="45" x2="255" y2="45"/>
+          <text class="label" x="258" y="48">Enamel</text>
+
+          <line class="leader" x1="205" y1="90" x2="255" y2="80"/>
+          <text class="label" x="258" y="83">Dentin</text>
+
+          <line class="leader" x1="163" y1="90" x2="255" y2="115"/>
+          <text class="label" x="258" y="118">Pulp chamber</text>
+
+          <line class="leader" x1="160" y1="190" x2="255" y2="180"/>
+          <text class="label" x="258" y="183">Root canal</text>
         </svg>
-        <div class="diagram-caption" id="diagramCaption"></div>
+        <div class="diagram-caption" id="diagram-caption"></div>
       </div>
     </div>
   </section>
 
-  <section id="about" hidden>
+  <section id="about">
     <div class="wrap about-grid">
-      <div class="portrait" id="aboutMonogram">DA</div>
-      <div class="about-text" id="aboutText"></div>
+      <div class="portrait" id="portrait">DA</div>
+      <div class="about-text" id="about-text"></div>
     </div>
   </section>
 
-  <section id="focus" hidden>
+  <section id="focus">
     <div class="wrap">
-      <div class="section-head"><h2>Areas of focus</h2><span class="index">Three threads, one direction</span></div>
+      <div class="section-head">
+        <h2>Areas of focus</h2>
+        <span class="index">Three threads, one direction</span>
+      </div>
     </div>
-    <div class="wrap"><div class="specimens" id="specimens"></div></div>
+    <div class="wrap">
+      <div class="specimens" id="specimens"></div>
+    </div>
   </section>
 
-  <section id="work" hidden>
+  <section id="work">
     <div class="wrap">
-      <div class="section-head"><h2>Work &amp; case notes</h2><span class="index">Edit these with your own rotations and projects</span></div>
+      <div class="section-head">
+        <h2>Work &amp; case notes</h2>
+        <span class="index">Edit these with your own rotations and projects</span>
+      </div>
       <div class="cases" id="cases"></div>
     </div>
   </section>
 
-  <section id="education" hidden>
+  <section id="education">
     <div class="wrap">
-      <div class="section-head"><h2>Education</h2></div>
+      <div class="section-head">
+        <h2>Education</h2>
+      </div>
       <div class="timeline" id="timeline"></div>
     </div>
   </section>
 
-  <section id="contact" hidden>
+  <section id="contact">
     <div class="wrap contact-grid">
       <div>
-        <h2 id="contactHeading"></h2>
-        <p id="contactLede" style="color:var(--ink-soft); max-width:48ch; margin-top:16px;"></p>
+        <h2 id="contact-heading"></h2>
+        <p id="contact-lede" style="color:var(--ink-soft); max-width:48ch; margin-top:16px;"></p>
       </div>
-      <ul class="contact-list" id="contactList"></ul>
+      <ul class="contact-list" id="contact-list"></ul>
     </div>
   </section>
 </main>
 
-<footer class="wrap" id="siteFooter" hidden>
-  <span>© <span id="year"></span> <span id="footerName"></span></span>
-  <span id="footerNote"></span>
+<footer class="wrap">
+  <span>© <span id="year"></span> <span id="footer-name"></span></span>
+  <span id="footer-note"></span>
 </footer>
 
 <script src="script.js"></script>
