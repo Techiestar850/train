@@ -1,32 +1,127 @@
-name: Random CI Test
+site:
+  name: David Akimara
+  title: David Akimara — Portfolio
+  monogram: DA
+  location: Nairobi, Kenya
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+nav:
+  - label: About
+    href: "#about"
+  - label: Focus
+    href: "#focus"
+  - label: Work
+    href: "#work"
+  - label: Education
+    href: "#education"
+  - label: Contact
+    href: "#contact"
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+hero:
+  eyebrow: Dental Sciences — University of Nairobi
+  headline: Working toward oral oncology and maxillofacial surgery.
+  lede: >
+    I'm a dental student building toward an MDS in Oral & Maxillofacial
+    Surgery, with a parallel interest in nanodentistry and how emerging
+    technology reshapes clinical practice.
+  actions:
+    - label: See my work
+      href: "#work"
+      style: solid
+    - label: Get in touch
+      href: "#contact"
+      style: outline
+  diagram_caption: "Fig. 1 — Sagittal cross-section, molar. Reference sketch, not to clinical scale."
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+about:
+  paragraphs:
+    - >
+      I'm David Akimara, a dental student in Nairobi, currently working
+      through the clinical and pre-clinical curriculum alongside the
+      professional and legal frameworks that govern dental practice in Kenya.
+    - >
+      My long-term direction is an MDS in Oral & Maxillofacial Surgery,
+      aimed at oral oncology and head and neck oncologic surgery — most
+      likely with fellowship training taken up abroad after the Kenyan
+      pathway.
+    - >
+      Alongside that, I follow nanodentistry as a research interest: how
+      nanoscale materials and delivery systems might change restorative and
+      diagnostic dentistry over the next decade. I also keep a running
+      interest in applied technology — AI in healthcare, and where
+      computing tools intersect with clinical work.
 
-      - name: Show project information
-        run: |
-          echo "Hello from GitHub Actions!"
-          echo "Repository: ${{ github.repository }}"
-          echo "Branch: ${{ github.ref_name }}"
+focus_areas:
+  - tag: Clinical pathway
+    title: Oral & maxillofacial oncology
+    description: >
+      Working toward an MDS in OMFS, with a focus narrowing toward head
+      and neck oncologic surgery and the surgical management of oral
+      cancers.
+  - tag: Research interest
+    title: Nanodentistry
+    description: >
+      Studying nanoscale materials and delivery systems in dentistry —
+      from self-study resources to formal certificate pathways — as a
+      future research area.
+  - tag: Applied technology
+    title: Health tech & AI
+    description: >
+      Following how AI and computing tools are being applied in
+      healthcare, and thinking through where those tools are useful — and
+      where they aren't — in clinical practice.
 
-      - name: Run a random test
-        run: |
-          echo "Running tests..."
-          sleep 2
-          echo "All tests passed successfully!"
+work:
+  - when: 2025 — 2026
+    title: Clinical rotation, oral & maxillofacial unit
+    description: >
+      Add a short note here on a rotation, case, or procedure you were
+      part of — what the case involved and what you took from it.
+    tags: [Clinical, OMFS]
+  - when: "2025"
+    title: Independent reading — nanodentistry
+    description: >
+      Space for a short write-up on a paper, technique, or material
+      system you reviewed while self-studying nanodentistry.
+    tags: [Research, Reading notes]
+  - when: "2024"
+    title: Coursework project
+    description: >
+      Slot in a coursework project, presentation, or case study worth
+      showing — coursework, community outreach, or a research poster.
+    tags: [Coursework]
 
-      - name: Finish
-        run: echo "CI workflow completed."
+education:
+  - when: Expected — MDS, Oral & Maxillofacial Surgery
+    institution: University of Nairobi
+    description: >
+      Prospective specialization pathway toward OMFS, with a longer-term
+      aim of subspecialty training in oral oncology and head and neck
+      oncologic surgery, likely completed through fellowship abroad.
+  - when: In progress — BDS
+    institution: University of Nairobi, School of Dental Sciences
+    description: >
+      Coursework spanning dental sciences, basic medical sciences, and the
+      professional and legal frameworks for dental practice in Kenya,
+      alongside clinical rotations affiliated with Kenyatta National
+      Hospital.
+
+contact:
+  heading: "Let's talk."
+  lede: >
+    Open to conversations on clinical rotations, research collaboration,
+    or anything at the intersection of dentistry and technology.
+  details:
+    - label: Email
+      value: youremail@example.com
+      href: "mailto:youremail@example.com"
+    - label: Phone
+      value: "+254 700 000 000"
+      href: "tel:+254700000000"
+    - label: LinkedIn
+      value: linkedin.com/in/davidakimara
+      href: "#"
+    - label: Location
+      value: Nairobi, Kenya
+
+footer:
+  note: Built as a single HTML file — edit freely.
