@@ -1,2 +1,32 @@
-title: Homepage
-theme: minima
+name: Random CI Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show project information
+        run: |
+          echo "Hello from GitHub Actions!"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+
+      - name: Run a random test
+        run: |
+          echo "Running tests..."
+          sleep 2
+          echo "All tests passed successfully!"
+
+      - name: Finish
+        run: echo "CI workflow completed."
