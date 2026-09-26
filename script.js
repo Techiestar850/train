@@ -1,194 +1,160 @@
 // script.js
-// Fetches david-akimara-portfolio.yml, parses it with js-yaml (loaded in index.html),
-// and renders every section of the page from that data.
-//
-// NOTE: fetch() cannot read local files over the file:// protocol in most
-// browsers. Serve this folder over http (e.g. `python3 -m http.server`,
-// or VS Code's "Live Server") and open http://localhost:PORT/index.html.
+// Loads david-akimara-portfolio.yml and fills in index.html.
+// Requires js-yaml (loaded via <script> tag in index.html) to parse YAML in the browser.
 
-const DATA_URL = "david-akimara-portfolio.yml";
+const YML_PATH = 'david-akimara-portfolio.yml';
 
-async function loadPortfolio() {
-  const loadMsg = document.getElementById("loadMsg");
-  try {
-    const res = await fetch(DATA_URL);
-    if (!res.ok) throw new Error(`Could not fetch ${DATA_URL} (${res.status})`);
-    const rawText = await res.text();
-    const data = jsyaml.load(rawText);
+document.getElementById('year').textContent = new Date().getFullYear();
 
+fetch(YML_PATH)
+  .then((res) => {
+    if (!res.ok) throw new Error(`Could not fetch ${YML_PATH} (${res.status})`);
+    return res.text();
+  })
+  .then((text) => {
+    const data = jsyaml.load(text);
     render(data);
-    loadMsg.hidden = true;
-  } catch (err) {
-    loadMsg.textContent =
-      "Couldn't load portfolio content: " + err.message +
-      ". If you opened this file directly (file://), run a local server " +
-      "instead — e.g. `python3 -m http.server` — then open it via http://localhost.";
-    loadMsg.classList.add("error");
+  })
+  .catch((err) => {
     console.error(err);
-  }
-}
+    document.getElementById('load-error').style.display = 'block';
+  });
 
 function render(data) {
-  renderHeader(data);
+  renderSite(data.site);
   renderNav(data.nav);
   renderHero(data.hero);
-  renderAbout(data);
-  renderFocus(data.focus_areas);
+  renderAbout(data.about, data.site);
+  renderFocusAreas(data.focus_areas);
   renderWork(data.work);
   renderEducation(data.education);
   renderContact(data.contact);
-  renderFooter(data);
-  revealSections();
+  renderFooter(data.footer, data.site);
 }
 
-function renderHeader(data) {
-  document.getElementById("siteMonogram").textContent = data.site.monogram || "";
-  document.getElementById("siteName").textContent = data.site.name || "";
-  document.getElementById("aboutMonogram").textContent = data.site.monogram || "";
-  document.title = data.site.title || data.site.name || "Portfolio";
+function renderSite(site) {
+  if (!site) return;
+  document.getElementById('page-title').textContent = site.title || site.name || '';
+  document.getElementById('mark').textContent = site.monogram || '';
+  document.getElementById('nav-name').textContent = site.name || '';
 }
 
-function renderNav(navItems = []) {
-  const list = document.getElementById("navList");
-  list.innerHTML = "";
-  navItems.forEach((item) => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = item.href;
-    a.textContent = item.label;
-    li.appendChild(a);
-    list.appendChild(li);
-  });
+function renderNav(navItems) {
+  const list = document.getElementById('nav-list');
+  list.innerHTML = (navItems || [])
+    .map((item) => `<li><a href="${escapeAttr(item.href)}">${escapeHtml(item.label)}</a></li>`)
+    .join('');
 }
 
-function renderHero(hero = {}) {
-  document.getElementById("heroEyebrow").textContent = hero.eyebrow || "";
-  document.getElementById("heroHeadline").textContent = hero.headline || "";
-  document.getElementById("heroLede").textContent = (hero.lede || "").trim();
-  document.getElementById("diagramCaption").textContent = hero.diagram_caption || "";
+function renderHero(hero) {
+  if (!hero) return;
+  document.getElementById('hero-eyebrow').textContent = hero.eyebrow || '';
+  document.getElementById('hero-headline').textContent = hero.headline || '';
+  document.getElementById('hero-lede').textContent = hero.lede || '';
+  document.getElementById('diagram-caption').textContent = hero.diagram_caption || '';
 
-  const actions = document.getElementById("heroActions");
-  actions.innerHTML = "";
-  (hero.actions || []).forEach((action) => {
-    const a = document.createElement("a");
-    a.href = action.href;
-    a.textContent = action.label;
-    a.className = "btn" + (action.style === "solid" ? " solid" : "");
-    actions.appendChild(a);
-  });
+  const actions = document.getElementById('hero-actions');
+  actions.innerHTML = (hero.actions || [])
+    .map((a) => {
+      const cls = a.style === 'solid' ? 'btn solid' : 'btn';
+      return `<a class="${cls}" href="${escapeAttr(a.href)}">${escapeHtml(a.label)}</a>`;
+    })
+    .join('');
 }
 
-function renderAbout(data) {
-  const container = document.getElementById("aboutText");
-  container.innerHTML = "";
-  (data.about?.paragraphs || []).forEach((text, i) => {
-    const p = document.createElement("p");
-    p.textContent = text.trim();
-    if (i === 0) {
-      // bold the name at the start of the first paragraph, if present
-      const name = data.site?.name;
-      if (name && text.trim().startsWith(name)) {
-        p.innerHTML = `<strong>${name}</strong>${text.trim().slice(name.length)}`;
-      }
-    }
-    container.appendChild(p);
-  });
+function renderAbout(about, site) {
+  document.getElementById('portrait').textContent = (site && site.monogram) || '';
+  const container = document.getElementById('about-text');
+  const paragraphs = (about && about.paragraphs) || [];
+  container.innerHTML = paragraphs
+    .map((p, i) => `<p>${i === 0 ? boldFirstName(p, site && site.name) : escapeHtml(p)}</p>`)
+    .join('');
 }
 
-function renderFocus(areas = []) {
-  const container = document.getElementById("specimens");
-  container.innerHTML = "";
-  areas.forEach((area) => {
-    const div = document.createElement("div");
-    div.className = "specimen";
-    div.innerHTML = `
-      <div class="tag">${escapeHtml(area.tag)}</div>
-      <h3>${escapeHtml(area.title)}</h3>
-      <p>${escapeHtml((area.description || "").trim())}</p>
-    `;
-    container.appendChild(div);
-  });
+// Bold the person's name if it opens the first paragraph, otherwise just escape the text.
+function boldFirstName(paragraph, name) {
+  const escaped = escapeHtml(paragraph);
+  if (name && escaped.startsWith(escapeHtml(name))) {
+    return `<strong>${escapeHtml(name)}</strong>${escaped.slice(escapeHtml(name).length)}`;
+  }
+  return escaped;
 }
 
-function renderWork(items = []) {
-  const container = document.getElementById("cases");
-  container.innerHTML = "";
-  items.forEach((item) => {
-    const div = document.createElement("div");
-    div.className = "case";
-    const tags = (item.tags || [])
-      .map((t) => `<span>${escapeHtml(t)}</span>`)
-      .join("");
-    div.innerHTML = `
+function renderFocusAreas(items) {
+  const container = document.getElementById('specimens');
+  container.innerHTML = (items || [])
+    .map(
+      (item) => `
+    <div class="specimen">
+      <div class="tag">${escapeHtml(item.tag)}</div>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.description)}</p>
+    </div>`
+    )
+    .join('');
+}
+
+function renderWork(items) {
+  const container = document.getElementById('cases');
+  container.innerHTML = (items || [])
+    .map(
+      (item) => `
+    <div class="case">
       <div class="when">${escapeHtml(item.when)}</div>
       <div>
         <h3>${escapeHtml(item.title)}</h3>
-        <p>${escapeHtml((item.description || "").trim())}</p>
-        <div class="tags">${tags}</div>
+        <p>${escapeHtml(item.description)}</p>
+        <div class="tags">${(item.tags || []).map((t) => `<span>${escapeHtml(t)}</span>`).join('')}</div>
       </div>
-    `;
-    container.appendChild(div);
-  });
+    </div>`
+    )
+    .join('');
 }
 
-function renderEducation(items = []) {
-  const container = document.getElementById("timeline");
-  container.innerHTML = "";
-  items.forEach((item) => {
-    const div = document.createElement("div");
-    div.className = "t-item";
-    div.innerHTML = `
+function renderEducation(items) {
+  const container = document.getElementById('timeline');
+  container.innerHTML = (items || [])
+    .map(
+      (item) => `
+    <div class="t-item">
       <div class="when">${escapeHtml(item.when)}</div>
       <h3>${escapeHtml(item.institution)}</h3>
-      <p>${escapeHtml((item.description || "").trim())}</p>
-    `;
-    container.appendChild(div);
-  });
+      <p>${escapeHtml(item.description)}</p>
+    </div>`
+    )
+    .join('');
 }
 
-function renderContact(contact = {}) {
-  document.getElementById("contactHeading").textContent = contact.heading || "";
-  document.getElementById("contactLede").textContent = (contact.lede || "").trim();
+function renderContact(contact) {
+  if (!contact) return;
+  document.getElementById('contact-heading').textContent = contact.heading || '';
+  document.getElementById('contact-lede').textContent = contact.lede || '';
 
-  const list = document.getElementById("contactList");
-  list.innerHTML = "";
-  (contact.details || []).forEach((detail) => {
-    const li = document.createElement("li");
-    const label = document.createElement("span");
-    label.className = "k";
-    label.textContent = detail.label;
-    li.appendChild(label);
-
-    if (detail.href) {
-      const a = document.createElement("a");
-      a.href = detail.href;
-      a.textContent = detail.value;
-      li.appendChild(a);
-    } else {
-      const span = document.createElement("span");
-      span.textContent = detail.value;
-      li.appendChild(span);
-    }
-    list.appendChild(li);
-  });
+  const list = document.getElementById('contact-list');
+  list.innerHTML = (contact.details || [])
+    .map((d) => {
+      const value = d.href
+        ? `<a href="${escapeAttr(d.href)}">${escapeHtml(d.value)}</a>`
+        : `<span>${escapeHtml(d.value)}</span>`;
+      return `<li><span class="k">${escapeHtml(d.label)}</span>${value}</li>`;
+    })
+    .join('');
 }
 
-function renderFooter(data) {
-  document.getElementById("footerName").textContent = data.site?.name || "";
-  document.getElementById("footerNote").textContent = data.footer?.note || "";
-  document.getElementById("year").textContent = new Date().getFullYear();
+function renderFooter(footer, site) {
+  document.getElementById('footer-name').textContent = (site && site.name) || '';
+  document.getElementById('footer-note').textContent = (footer && footer.note) || '';
 }
 
-function revealSections() {
-  document
-    .querySelectorAll("main section, footer")
-    .forEach((el) => el.removeAttribute("hidden"));
+// --- small helpers to keep text from yml out of the HTML parser's way ---
+function escapeHtml(str) {
+  if (str === undefined || str === null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
-function escapeHtml(str = "") {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, '&quot;');
 }
-
-document.addEventListener("DOMContentLoaded", loadPortfolio);
