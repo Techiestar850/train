@@ -1,774 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>{{ site.site.title }}</title>
-  <meta name="description" content="{{ site.hero.lede }}">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.7;
-      color: #17202a;
-      background: #f7f9fc;
-    }
-
-    /* =========================
-       HEADER
-    ========================== */
-
-    header {
-      background: #0b1f3a;
-      color: white;
-      padding: 22px 7%;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 30px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: white;
-    }
-
-    .monogram {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #1976d2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 17px;
-    }
-
-    .brand-name {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    nav {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-      opacity: 0.9;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #64b5f6;
-    }
-
-    /* =========================
-       HERO
-    ========================== */
-
-    .hero {
-      background:
-        linear-gradient(135deg, #0b1f3a, #123f73);
-      color: white;
-      padding: 110px 7%;
-    }
-
-    .hero-container {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 13px;
-      color: #90caf9;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    .hero h1 {
-      font-size: clamp(40px, 6vw, 70px);
-      line-height: 1.1;
-      margin-bottom: 25px;
-    }
-
-    .hero-lede {
-      font-size: 19px;
-      max-width: 700px;
-      color: #dbeafe;
-      margin-bottom: 35px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 13px 24px;
-      border-radius: 7px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .button-solid {
-      background: #2196f3;
-      color: white;
-    }
-
-    .button-solid:hover {
-      background: #42a5f5;
-      transform: translateY(-2px);
-    }
-
-    .button-outline {
-      border: 1px solid #90caf9;
-      color: white;
-    }
-
-    .button-outline:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* Diagram */
-
-    .diagram {
-      min-height: 300px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .tooth-symbol {
-      font-size: 120px;
-      opacity: 0.85;
-    }
-
-    .diagram-caption {
-      font-size: 12px;
-      color: #bbdefb;
-      margin-top: 15px;
-    }
-
-    /* =========================
-       GENERAL SECTIONS
-    ========================== */
-
-    section {
-      padding: 85px 7%;
-    }
-
-    .section-container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .section-label {
-      color: #1976d2;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: 38px;
-      margin-bottom: 30px;
-      color: #0b1f3a;
-    }
-
-    .about-text {
-      max-width: 850px;
-      font-size: 18px;
-    }
-
-    .about-text p {
-      margin-bottom: 20px;
-    }
-
-    /* =========================
-       FOCUS AREAS
-    ========================== */
-
-    #focus {
-      background: white;
-    }
-
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .focus-card {
-      background: #f7f9fc;
-      padding: 30px;
-      border-radius: 12px;
-      border: 1px solid #e1e7ef;
-      transition: 0.3s;
-    }
-
-    .focus-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    }
-
-    .tag {
-      display: inline-block;
-      background: #e3f2fd;
-      color: #1565c0;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 18px;
-    }
-
-    .focus-card h3 {
-      font-size: 22px;
-      color: #0b1f3a;
-      margin-bottom: 12px;
-    }
-
-    /* =========================
-       WORK
-    ========================== */
-
-    .work-item {
-      border-left: 3px solid #1976d2;
-      padding: 5px 0 30px 25px;
-      margin-bottom: 30px;
-    }
-
-    .work-date {
-      color: #1976d2;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .work-item h3 {
-      font-size: 23px;
-      color: #0b1f3a;
-      margin-bottom: 10px;
-    }
-
-    .work-tags {
-      margin-top: 15px;
-    }
-
-    .work-tag {
-      display: inline-block;
-      background: #eef3f8;
-      padding: 5px 10px;
-      margin-right: 7px;
-      border-radius: 5px;
-      font-size: 12px;
-    }
-
-    /* =========================
-       EDUCATION
-    ========================== */
-
-    #education {
-      background: white;
-    }
-
-    .education-card {
-      padding: 30px;
-      margin-bottom: 20px;
-      border: 1px solid #e1e7ef;
-      border-radius: 12px;
-    }
-
-    .education-date {
-      color: #1976d2;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .education-card h3 {
-      margin: 7px 0;
-      font-size: 23px;
-      color: #0b1f3a;
-    }
-
-    /* =========================
-       CONTACT
-    ========================== */
-
-    .contact-box {
-      background: #0b1f3a;
-      color: white;
-      padding: 50px;
-      border-radius: 18px;
-    }
-
-    .contact-box h2 {
-      color: white;
-      margin-bottom: 10px;
-    }
-
-    .contact-lede {
-      color: #dbeafe;
-      margin-bottom: 30px;
-      max-width: 700px;
-    }
-
-    .contact-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .contact-detail {
-      padding: 18px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 8px;
-    }
-
-    .contact-detail strong {
-      display: block;
-      color: #90caf9;
-      font-size: 13px;
-      margin-bottom: 5px;
-    }
-
-    .contact-detail a {
-      color: white;
-      text-decoration: none;
-    }
-
-    /* =========================
-       FOOTER
-    ========================== */
-
-    footer {
-      background: #071426;
-      color: #aebdce;
-      text-align: center;
-      padding: 30px;
-      font-size: 13px;
-    }
-
-    /* =========================
-       MOBILE
-    ========================== */
-
-    @media (max-width: 800px) {
-
-      header {
-        position: relative;
-      }
-
-      .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav {
-        gap: 12px;
-      }
-
-      .hero {
-        padding: 75px 7%;
-      }
-
-      .hero-container {
-        grid-template-columns: 1fr;
-      }
-
-      .focus-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-details {
-        grid-template-columns: 1fr;
-      }
-
-      section {
-        padding: 65px 7%;
-      }
-
-      h2 {
-        font-size: 31px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Akimara — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- YAML parser: turns portfolio-data.yml into a JS object for script.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<style>
+  :root{
+    --bg: #F5F3EE;
+    --panel: #FBFAF6;
+    --ink: #1D1B18;
+    --ink-soft: #55524A;
+    --teal: #14555A;
+    --teal-deep: #0D3A3E;
+    --gold: #B8843A;
+    --line: #D8D2C4;
+    --max: 1080px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0; background: var(--bg); color: var(--ink);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family: 'Source Serif 4', Georgia, serif; font-weight:600; margin:0; color: var(--ink); }
+  a{ color: inherit; }
+  img,svg{ max-width: 100%; }
+  .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  header{ position: sticky; top:0; z-index: 20; background: rgba(245,243,238,0.92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding: 16px 28px; max-width: var(--max); margin: 0 auto; }
+  .mark{ width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--teal); display:flex; align-items:center; justify-content:center; font-family:'Source Serif 4',serif; font-weight:600; font-size: 15px; color: var(--teal); flex-shrink:0; }
+  .nav-left{ display:flex; align-items:center; gap:12px; }
+  .nav-left .name{ font-size: 14px; letter-spacing: 0.02em; color: var(--ink-soft); }
+  nav ul{ list-style:none; display:flex; gap: 28px; margin:0; padding:0; font-size: 14px; }
+  nav ul a{ text-decoration:none; color: var(--ink-soft); transition: color .15s ease; }
+  nav ul a:hover{ color: var(--teal); }
+  @media (max-width: 720px){ nav ul{ display:none; } }
+
+  .hero{ padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+  .hero-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items:center; }
+  @media (max-width: 860px){ .hero-grid{ grid-template-columns: 1fr; } }
+  .eyebrow{ font-size: 13px; color: var(--teal); margin-bottom: 14px; }
+  .hero h1{ font-size: clamp(2.1rem, 4.2vw, 3.4rem); line-height: 1.12; max-width: 16ch; }
+  .hero p.lede{ max-width: 46ch; color: var(--ink-soft); font-size: 1.05rem; margin-top: 20px; }
+  .hero-actions{ margin-top: 28px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{ display:inline-block; padding: 11px 22px; border: 1px solid var(--teal); color: var(--teal); text-decoration:none; font-size: 14px; border-radius: 3px; transition: background .15s ease, color .15s ease; }
+  .btn.solid{ background: var(--teal); color: #fff; }
+  .btn.solid:hover{ background: var(--teal-deep); border-color: var(--teal-deep); }
+  .btn:not(.solid):hover{ background: var(--teal); color:#fff; }
+
+  .diagram{ background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 18px; }
+  .diagram svg{ display:block; width:100%; height:auto; }
+  .diagram-caption{ font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; }
+  .tooth-outline{ fill:none; stroke: var(--teal-deep); stroke-width: 2; stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 1.8s ease forwards .2s; }
+  .tooth-fill-dentin{ fill: #EFE6D2; opacity:0; animation: fadein .6s ease forwards 1.4s; }
+  .tooth-fill-pulp{ fill: #E3B98A; opacity:0; animation: fadein .6s ease forwards 1.6s; }
+  .leader{ stroke: var(--line); stroke-width:1; }
+  .label{ font-family:'IBM Plex Sans', sans-serif; font-size: 10.5px; fill: var(--ink-soft); }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes fadein{ to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    .tooth-outline{ animation:none; stroke-dashoffset:0; }
+    .tooth-fill-dentin,.tooth-fill-pulp{ animation:none; opacity:1; }
+  }
+
+  section{ padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; justify-content:space-between; align-items:baseline; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+  .section-head h2{ font-size: 1.7rem; }
+  .section-head .index{ font-size: 13px; color: var(--ink-soft); }
+
+  .about-grid{ display:grid; grid-template-columns: 200px 1fr; gap: 40px; }
+  @media (max-width: 720px){ .about-grid{ grid-template-columns:1fr; } }
+  .portrait{ width: 160px; height: 160px; border-radius: 50%; background: var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Source Serif 4',serif; font-size: 2.6rem; font-weight:600; }
+  .about-text p{ margin: 0 0 16px; color: var(--ink-soft); max-width: 62ch; }
+  .about-text p:last-child{ margin-bottom:0; }
+  .about-text strong{ color: var(--ink); font-weight:600; }
+
+  .specimens{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  @media (max-width: 780px){ .specimens{ grid-template-columns:1fr; } }
+  .specimen{ border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 26px; }
+  .specimen .tag{ font-size: 11px; color: var(--gold); letter-spacing: 0.03em; margin-bottom: 10px; }
+  .specimen h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .specimen p{ font-size: 0.94rem; color: var(--ink-soft); margin:0; }
+
+  .cases{ display:flex; flex-direction:column; gap: 0; }
+  .case{ display:grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .cases > .case:last-child{ border-bottom: 1px solid var(--line); }
+  @media (max-width: 640px){ .case{ grid-template-columns:1fr; gap:6px; } }
+  .case .when{ font-size: 13px; color: var(--ink-soft); padding-top: 2px; }
+  .case h3{ font-size: 1.1rem; margin-bottom: 6px; }
+  .case p{ margin:0; color: var(--ink-soft); font-size: 0.95rem; max-width: 60ch; }
+  .case .tags{ margin-top: 10px; display:flex; gap:8px; flex-wrap:wrap; }
+  .case .tags span{ font-size: 11px; color: var(--teal); border: 1px solid var(--teal); border-radius: 3px; padding: 3px 8px; }
+
+  .timeline{ position:relative; padding-left: 28px; }
+  .timeline::before{ content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background: var(--line); }
+  .t-item{ position:relative; padding-bottom: 32px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{ content:""; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%; background: var(--panel); border: 2px solid var(--teal); }
+  .t-item .when{ font-size: 13px; color: var(--gold); margin-bottom: 4px; }
+  .t-item h3{ font-size: 1.05rem; margin-bottom: 6px; }
+  .t-item p{ margin:0; color: var(--ink-soft); font-size:0.94rem; max-width: 58ch; }
+
+  .contact-grid{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items:start; }
+  @media (max-width: 720px){ .contact-grid{ grid-template-columns:1fr; } }
+  .contact-grid h2{ font-size: 1.9rem; max-width: 14ch; }
+  .contact-list{ list-style:none; margin: 24px 0 0; padding:0; }
+  .contact-list li{ padding: 12px 0; border-top: 1px solid var(--line); }
+  .contact-list li:last-child{ border-bottom: 1px solid var(--line); }
+  .contact-list .k{ font-size: 12px; color: var(--ink-soft); display:block; margin-bottom: 3px; }
+  .contact-list a{ text-decoration:none; font-size: 0.98rem; }
+  .contact-list a:hover{ color: var(--teal); }
+
+  footer{ padding: 28px 0 40px; font-size: 12.5px; color: var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* shown briefly while script.js fetches + parses the YAML, or if it fails */
+  .load-msg{ padding: 40px 28px; color: var(--ink-soft); font-size: 14px; }
+  .load-msg.error{ color: #a13d3d; }
+</style>
 </head>
-
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
-
-  <header>
-    <div class="nav-container">
-
-      <a href="#" class="brand">
-        <div class="monogram">
-          {{ site.site.monogram }}
-        </div>
-
-        <div class="brand-name">
-          {{ site.site.name }}
-        </div>
-      </a>
-
-      <nav>
-        {% for item in site.nav %}
-          <a href="{{ item.href }}">
-            {{ item.label }}
-          </a>
-        {% endfor %}
-      </nav>
-
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="mark" id="siteMonogram">DA</div>
+      <span class="name" id="siteName">Loading…</span>
     </div>
-  </header>
+    <nav><ul id="navList"></ul></nav>
+  </div>
+</header>
 
+<main>
+  <p id="loadMsg" class="load-msg">Loading portfolio content…</p>
 
-  <!-- =========================
-       HERO
-  ========================== -->
-
-  <section class="hero">
-
-    <div class="hero-container">
-
+  <section class="hero" id="heroSection" hidden>
+    <div class="wrap hero-grid">
       <div>
-
-        <div class="eyebrow">
-          {{ site.hero.eyebrow }}
-        </div>
-
-        <h1>
-          {{ site.hero.headline }}
-        </h1>
-
-        <p class="hero-lede">
-          {{ site.hero.lede }}
-        </p>
-
-        <div class="actions">
-
-          {% for action in site.hero.actions %}
-
-            <a
-              href="{{ action.href }}"
-              class="button {% if action.style == 'solid' %}button-solid{% else %}button-outline{% endif %}">
-              {{ action.label }}
-            </a>
-
-          {% endfor %}
-
-        </div>
-
+        <div class="eyebrow" id="heroEyebrow"></div>
+        <h1 id="heroHeadline"></h1>
+        <p class="lede" id="heroLede"></p>
+        <div class="hero-actions" id="heroActions"></div>
       </div>
-
 
       <div class="diagram">
-
-        <div>
-
-          <div class="tooth-symbol">
-            🦷
-          </div>
-
-          <div class="diagram-caption">
-            {{ site.hero.diagram_caption }}
-          </div>
-
-        </div>
-
+        <svg viewBox="0 0 320 260" role="img" aria-labelledby="toothTitle">
+          <title id="toothTitle">Cross-section diagram of a molar, labelling enamel, dentin, pulp, and root canal</title>
+          <path class="tooth-fill-dentin" d="M110 40 C110 20 210 20 210 40 L214 96 C214 110 200 118 190 122 L184 200 C184 214 176 222 165 222 L155 222 C144 222 136 214 136 200 L130 122 C120 118 106 110 106 96 Z"/>
+          <path class="tooth-fill-pulp" d="M148 60 C148 52 172 52 172 60 L174 110 C174 150 168 190 160 200 C152 190 146 150 146 110 Z"/>
+          <path class="tooth-outline" d="M110 40 C110 20 210 20 210 40 L214 96 C214 110 200 118 190 122 L184 200 C184 214 176 222 165 222 L155 222 C144 222 136 214 136 200 L130 122 C120 118 106 110 106 96 Z"/>
+          <path class="tooth-outline" d="M112 44 C112 44 130 60 160 60 C190 60 208 44 208 44"/>
+          <line class="leader" x1="214" y1="45" x2="255" y2="45"/><text class="label" x="258" y="48">Enamel</text>
+          <line class="leader" x1="205" y1="90" x2="255" y2="80"/><text class="label" x="258" y="83">Dentin</text>
+          <line class="leader" x1="163" y1="90" x2="255" y2="115"/><text class="label" x="258" y="118">Pulp chamber</text>
+          <line class="leader" x1="160" y1="190" x2="255" y2="180"/><text class="label" x="258" y="183">Root canal</text>
+        </svg>
+        <div class="diagram-caption" id="diagramCaption"></div>
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =========================
-       ABOUT
-  ========================== -->
-
-  <section id="about">
-
-    <div class="section-container">
-
-      <div class="section-label">
-        About
-      </div>
-
-      <h2>
-        Who I am
-      </h2>
-
-      <div class="about-text">
-
-        {% for paragraph in site.about.paragraphs %}
-
-          <p>
-            {{ paragraph }}
-          </p>
-
-        {% endfor %}
-
-      </div>
-
+  <section id="about" hidden>
+    <div class="wrap about-grid">
+      <div class="portrait" id="aboutMonogram">DA</div>
+      <div class="about-text" id="aboutText"></div>
     </div>
-
   </section>
 
-
-  <!-- =========================
-       FOCUS
-  ========================== -->
-
-  <section id="focus">
-
-    <div class="section-container">
-
-      <div class="section-label">
-        Focus
-      </div>
-
-      <h2>
-        Areas I'm exploring
-      </h2>
-
-      <div class="focus-grid">
-
-        {% for area in site.focus_areas %}
-
-          <article class="focus-card">
-
-            <span class="tag">
-              {{ area.tag }}
-            </span>
-
-            <h3>
-              {{ area.title }}
-            </h3>
-
-            <p>
-              {{ area.description }}
-            </p>
-
-          </article>
-
-        {% endfor %}
-
-      </div>
-
+  <section id="focus" hidden>
+    <div class="wrap">
+      <div class="section-head"><h2>Areas of focus</h2><span class="index">Three threads, one direction</span></div>
     </div>
-
+    <div class="wrap"><div class="specimens" id="specimens"></div></div>
   </section>
 
-
-  <!-- =========================
-       WORK
-  ========================== -->
-
-  <section id="work">
-
-    <div class="section-container">
-
-      <div class="section-label">
-        Work
-      </div>
-
-      <h2>
-        Selected work
-      </h2>
-
-      {% for item in site.work %}
-
-        <article class="work-item">
-
-          <div class="work-date">
-            {{ item.when }}
-          </div>
-
-          <h3>
-            {{ item.title }}
-          </h3>
-
-          <p>
-            {{ item.description }}
-          </p>
-
-          <div class="work-tags">
-
-            {% for tag in item.tags %}
-
-              <span class="work-tag">
-                {{ tag }}
-              </span>
-
-            {% endfor %}
-
-          </div>
-
-        </article>
-
-      {% endfor %}
-
+  <section id="work" hidden>
+    <div class="wrap">
+      <div class="section-head"><h2>Work &amp; case notes</h2><span class="index">Edit these with your own rotations and projects</span></div>
+      <div class="cases" id="cases"></div>
     </div>
-
   </section>
 
-
-  <!-- =========================
-       EDUCATION
-  ========================== -->
-
-  <section id="education">
-
-    <div class="section-container">
-
-      <div class="section-label">
-        Education
-      </div>
-
-      <h2>
-        Academic pathway
-      </h2>
-
-      {% for item in site.education %}
-
-        <article class="education-card">
-
-          <div class="education-date">
-            {{ item.when }}
-          </div>
-
-          <h3>
-            {{ item.institution }}
-          </h3>
-
-          <p>
-            {{ item.description }}
-          </p>
-
-        </article>
-
-      {% endfor %}
-
+  <section id="education" hidden>
+    <div class="wrap">
+      <div class="section-head"><h2>Education</h2></div>
+      <div class="timeline" id="timeline"></div>
     </div>
-
   </section>
 
-
-  <!-- =========================
-       CONTACT
-  ========================== -->
-
-  <section id="contact">
-
-    <div class="section-container">
-
-      <div class="contact-box">
-
-        <h2>
-          {{ site.contact.heading }}
-        </h2>
-
-        <p class="contact-lede">
-          {{ site.contact.lede }}
-        </p>
-
-        <div class="contact-details">
-
-          {% for detail in site.contact.details %}
-
-            <div class="contact-detail">
-
-              <strong>
-                {{ detail.label }}
-              </strong>
-
-              {% if detail.href %}
-
-                <a href="{{ detail.href }}">
-                  {{ detail.value }}
-                </a>
-
-              {% else %}
-
-                {{ detail.value }}
-
-              {% endif %}
-
-            </div>
-
-          {% endfor %}
-
-        </div>
-
+  <section id="contact" hidden>
+    <div class="wrap contact-grid">
+      <div>
+        <h2 id="contactHeading"></h2>
+        <p id="contactLede" style="color:var(--ink-soft); max-width:48ch; margin-top:16px;"></p>
       </div>
-
+      <ul class="contact-list" id="contactList"></ul>
     </div>
-
   </section>
+</main>
 
+<footer class="wrap" id="siteFooter" hidden>
+  <span>© <span id="year"></span> <span id="footerName"></span></span>
+  <span id="footerNote"></span>
+</footer>
 
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
-  <footer>
-
-    {{ site.footer.note }}
-
-    <br><br>
-
-    © {{ site.site.name }}
-
-  </footer>
-
+<script src="script.js"></script>
 </body>
 </html>
