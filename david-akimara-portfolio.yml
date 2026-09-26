@@ -112,11 +112,11 @@ contact:
     or anything at the intersection of dentistry and technology.
   details:
     - label: Email
-      value: youremail@example.com
-      href: "mailto:youremail@example.com"
+      value: davidakimara@gmail.com
+      href: "mailto: davidakimara@gmail.com"
     - label: Phone
-      value: "+254 700 000 000"
-      href: "tel:+254700000000"
+      value: "+254 713710585"
+      href: "tel:+254 713710585"
     - label: LinkedIn
       value: linkedin.com/in/davidakimara
       href: "#"
@@ -124,4 +124,4 @@ contact:
       value: Nairobi, Kenya
 
 footer:
-  note: Built as a single HTML file — edit freely.
+  note: In God, I Trust.
