@@ -115,8 +115,8 @@ contact:
       value: davidakimara@gmail.com
       href: "mailto: davidakimara@gmail.com"
     - label: Phone
-      value: "+254 713710585"
-      href: "tel:+254 713710585"
+      value: "+254713710585"
+      href: "tel:+254713710585"
     - label: LinkedIn
       value: linkedin.com/in/davidakimara
       href: "#"
